@@ -2,7 +2,7 @@
     "name": "ohmybank/ohmybank",
     "license": "MIT",
     "type": "project",
-    "description": "Manage your money",
+    "description": "Track your personal finances",
     "autoload": {
         "psr-0": { "": "src/", "SymfonyStandard": "app/" }
     },
