@@ -1,0 +1,12 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+
+    <entity name="OhMyBank\Bundle\ApiBundle\Entity\Account" table="account">
+        <id name="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="name" type="string" />
+        <field name="initialBalance" column="initial_balance" type="float"/>
+    </entity>
+
+</doctrine-mapping>
