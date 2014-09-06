@@ -1,0 +1,7 @@
+parameters:
+#    oh_my_bank_api.example.class: OhMyBank\Bundle\ApiBundle\Example
+
+services:
+#    oh_my_bank_api.example:
+#        class: %oh_my_bank_api.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
