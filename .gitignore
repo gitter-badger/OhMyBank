@@ -7,6 +7,7 @@ vendor/*
 */cache/*
 web/uploads/*
 web/bundles/*
+/web/assets/dist/
 
 # Configuration files
 app/config/parameters.ini
@@ -16,3 +17,7 @@ app/config/parameters.yml
 
 # Composer
 composer.phar
+
+/.sass-cache/
+/node_modules/
+/bower_components/

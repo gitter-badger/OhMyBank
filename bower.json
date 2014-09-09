@@ -1,0 +1,7 @@
+{
+    "name": "oh-my-bank",
+    "dependencies": {
+        "bootstrap": "~3.2",
+	"angular": "~1.2"
+    }
+}
