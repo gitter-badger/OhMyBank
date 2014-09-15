@@ -1,4 +1,8 @@
 parameters:
 
 services:
+  ohmybank.form.type.account:
+    class: OhMyBank\Bundle\ApiBundle\Form\Type\AccountType
+    tags:
+      - { name: form.type, alias: ohmybank_account }
 
