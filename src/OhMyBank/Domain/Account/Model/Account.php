@@ -1,6 +1,6 @@
 <?php
 
-namespace OhMyBank\Domain\Model;
+namespace OhMyBank\Domain\Account\Model;
 
 class Account
 {
