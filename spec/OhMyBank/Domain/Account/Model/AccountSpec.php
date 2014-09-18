@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\OhMyBank\Domain\Model;
+namespace spec\OhMyBank\Domain\Account\Model;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class AccountSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('OhMyBank\Domain\Model\Account');
+        $this->shouldHaveType('OhMyBank\Domain\Account\Model\Account');
     }
 
     function it_has_no_id_by_default()
