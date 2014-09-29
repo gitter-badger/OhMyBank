@@ -11,7 +11,7 @@ class AccountType extends AbstractType
     {
         $builder
             ->add('name', 'text')
-            ->add('initialBalance', 'number');
+            ->add('initialBalance', 'number')
         ;
     }
 

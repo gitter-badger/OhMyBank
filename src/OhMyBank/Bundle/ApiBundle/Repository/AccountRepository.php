@@ -3,6 +3,7 @@
 namespace OhMyBank\Bundle\ApiBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use OhMyBank\Bundle\ApiBundle\Entity\Account as AccountEntity;
 use OhMyBank\Domain\Account\Model\Account;
 use OhMyBank\Domain\Account\Repository\AccountRepository as AccountRepositoryInterface;
 
@@ -13,7 +14,7 @@ class AccountRepository extends EntityRepository implements AccountRepositoryInt
      */
     public function createNew()
     {
-        return new Account();
+        return new AccountEntity();
     }
 
     /**

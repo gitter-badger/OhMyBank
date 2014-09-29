@@ -2,7 +2,7 @@
 
 namespace OhMyBank\Bundle\ApiBundle\Facade;
 
-use OhMyBank\Bundle\ApiBundle\Entity\Account as AccountModel;
+use OhMyBank\Domain\Account\Model\Account as AccountModel;
 
 class Account
 {

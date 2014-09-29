@@ -6,3 +6,14 @@ services:
     tags:
       - { name: form.type, alias: ohmybank_account }
 
+  ohmybank.processor.create_account:
+    class: OhMyBank\Domain\Account\Processor\CreateAccountProcessor
+    arguments:
+      - @ohmybank.repository.account
+
+  ohmybank.repository.account:
+    class: OhMyBank\Bundle\ApiBundle\Repository\AccountRepository
+    factory_service: doctrine.orm.entity_manager
+    factory_method: getRepository
+    arguments:
+      - 'OhMyBankApiBundle:Account'

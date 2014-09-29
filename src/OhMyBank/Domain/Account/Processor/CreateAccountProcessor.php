@@ -3,6 +3,7 @@
 namespace OhMyBank\Domain\Account\Processor;
 
 use OhMyBank\Domain\Account\Action\CreateAccountAction;
+use OhMyBank\Domain\Account\Model\Account;
 use OhMyBank\Domain\Account\Repository\AccountRepository;
 
 class CreateAccountProcessor
@@ -22,6 +23,8 @@ class CreateAccountProcessor
 
     /**
      * @param CreateAccountAction $action
+     *
+     * @return Account
      */
     public function execute(CreateAccountAction $action)
     {
