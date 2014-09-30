@@ -17,6 +17,26 @@ class AccountController extends FOSRestController
     /**
      * @Rest\View
      */
+    public function getAccountAction(Account $account)
+    {
+        return $account;
+    }
+
+    /**
+     * @Rest\View
+     */
+    public function getAccountsAction()
+    {
+        $accounts = $this->get('ohmybank.repository.account')->findAll();
+
+        $facades = array_map([$this, 'createFacade'], $accounts);
+
+        return $facades;
+    }
+
+    /**
+     * @Rest\View
+     */
     public function postAccountAction(Request $request)
     {
         $action = new CreateAccountAction();
@@ -25,7 +45,7 @@ class AccountController extends FOSRestController
 
         if ($form->handleRequest($request)->isValid()) {
             $account = $this->get('ohmybank.processor.create_account')->execute($action);
-            $facade = new AccountFacade($account);
+            $facade = $this->createFacade($account);
 
             return View::create($facade, 201);
         }
@@ -34,10 +54,12 @@ class AccountController extends FOSRestController
     }
 
     /**
-     * @Rest\View
+     * @param Account $account
+     *
+     * @return AccountFacade
      */
-    public function getAccountAction(Account $account)
+    public function createFacade(Account $account)
     {
-        return $account;
+        return new AccountFacade($account);
     }
 }
