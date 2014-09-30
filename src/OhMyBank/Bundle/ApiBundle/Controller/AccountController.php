@@ -10,6 +10,7 @@ use OhMyBank\Bundle\ApiBundle\Entity\Account;
 use OhMyBank\Bundle\ApiBundle\Facade\Account as AccountFacade;
 use OhMyBank\Domain\Account\Action\CreateAccountAction;
 
+use OhMyBank\Domain\Account\Action\DeleteAccountAction;
 use Symfony\Component\HttpFoundation\Request;
 
 class AccountController extends FOSRestController
@@ -51,6 +52,17 @@ class AccountController extends FOSRestController
         }
 
         return View::create($form, 400);
+    }
+
+    /**
+     * @Rest\View
+     */
+    public function deleteAccountAction(Account $account)
+    {
+        $action = new DeleteAccountAction($account);
+        $this->get('ohmybank.processor.delete_account')->execute($action);
+
+        return View::create(null, 204);
     }
 
     /**

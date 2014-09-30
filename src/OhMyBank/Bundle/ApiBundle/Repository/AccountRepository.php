@@ -25,4 +25,13 @@ class AccountRepository extends EntityRepository implements AccountRepositoryInt
         $this->_em->persist($account);
         $this->_em->flush($account);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function remove(Account $account)
+    {
+        $this->_em->remove($account);
+        $this->_em->flush($account);
+    }
 }

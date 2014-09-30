@@ -15,4 +15,9 @@ interface AccountRepository
      * @param Account $account
      */
     public function save(Account $account);
+
+    /**
+     * @param Account $account
+     */
+    public function remove(Account $account);
 }
