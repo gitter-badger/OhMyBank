@@ -2,7 +2,10 @@
 
 ## Dependencies
 
-You will need to have [ansible](http://www.ansible.com/home) installed.
+You will need the following dependencies installed:
+* [Vagrant Host Manager](https://github.com/smdahlen/vagrant-hostmanager)
+* [ansible](http://www.ansible.com/home)
+* NFS
 
 ## Description
 
