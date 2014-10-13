@@ -11,6 +11,7 @@ use OhMyBank\Bundle\ApiBundle\Facade\Account as AccountFacade;
 use OhMyBank\Domain\Account\Action\CreateAccountAction;
 
 use OhMyBank\Domain\Account\Action\DeleteAccountAction;
+use OhMyBank\Domain\Account\Action\EditAccountAction;
 use Symfony\Component\HttpFoundation\Request;
 
 class AccountController extends FOSRestController
@@ -30,7 +31,7 @@ class AccountController extends FOSRestController
     {
         $accounts = $this->get('ohmybank.repository.account')->findAll();
 
-        $facades = array_map([$this, 'createFacade'], $accounts);
+        $facades = array_map([$this, 'createAccountFacade'], $accounts);
 
         return $facades;
     }
@@ -46,9 +47,28 @@ class AccountController extends FOSRestController
 
         if ($form->handleRequest($request)->isValid()) {
             $account = $this->get('ohmybank.processor.create_account')->execute($action);
-            $facade = $this->createFacade($account);
+            $facade = $this->createAccountFacade($account);
 
             return View::create($facade, 201);
+        }
+
+        return View::create($form, 400);
+    }
+
+    /**
+     * @Rest\View
+     */
+    public function putAccountAction(Request $request, Account $account)
+    {
+        $action = new EditAccountAction($account);
+        $form = $this->get('form.factory')->createNamed('', 'ohmybank_account', $action);
+
+        $form->submit($request->request->all());
+
+        if ($form->isValid()) {
+            $this->get('ohmybank.processor.edit_account')->execute($action);
+
+            return View::create(null, 204);
         }
 
         return View::create($form, 400);
@@ -70,7 +90,7 @@ class AccountController extends FOSRestController
      *
      * @return AccountFacade
      */
-    public function createFacade(Account $account)
+    public function createAccountFacade(Account $account)
     {
         return new AccountFacade($account);
     }

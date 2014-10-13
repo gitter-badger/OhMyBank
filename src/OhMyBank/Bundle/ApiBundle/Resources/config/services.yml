@@ -1,24 +1,29 @@
 parameters:
 
 services:
-  ohmybank.form.type.account:
-    class: OhMyBank\Bundle\ApiBundle\Form\Type\AccountType
-    tags:
-      - { name: form.type, alias: ohmybank_account }
+    ohmybank.form.type.account:
+        class: OhMyBank\Bundle\ApiBundle\Form\Type\AccountType
+        tags:
+            - { name: form.type, alias: ohmybank_account }
 
-  ohmybank.processor.create_account:
-    class: OhMyBank\Domain\Account\Processor\CreateAccountProcessor
-    arguments:
-      - @ohmybank.repository.account
+    ohmybank.processor.create_account:
+        class: OhMyBank\Domain\Account\Processor\CreateAccountProcessor
+        arguments:
+            - @ohmybank.repository.account
 
-  ohmybank.processor.delete_account:
-      class: OhMyBank\Domain\Account\Processor\DeleteAccountProcessor
-      arguments:
-        - @ohmybank.repository.account
+    ohmybank.processor.delete_account:
+        class: OhMyBank\Domain\Account\Processor\DeleteAccountProcessor
+        arguments:
+            - @ohmybank.repository.account
 
-  ohmybank.repository.account:
-    class: OhMyBank\Bundle\ApiBundle\Repository\AccountRepository
-    factory_service: doctrine.orm.entity_manager
-    factory_method: getRepository
-    arguments:
-      - 'OhMyBankApiBundle:Account'
+    ohmybank.processor.edit_account:
+        class: OhMyBank\Domain\Account\Processor\EditAccountProcessor
+        arguments:
+            - @ohmybank.repository.account
+
+    ohmybank.repository.account:
+        class: OhMyBank\Bundle\ApiBundle\Repository\AccountRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+            - 'OhMyBankApiBundle:Account'
