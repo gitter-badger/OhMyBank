@@ -1,14 +1,9 @@
 <?php
 
-namespace OhMyBank\Domain\Model;
+namespace OhMyBank\Domain\Account\Action;
 
-class Account
+class CreateAccountAction
 {
-    /**
-     * @var int
-     */
-    protected $id;
-
     /**
      * @var string
      */
@@ -19,21 +14,10 @@ class Account
      */
     protected $initialBalance;
 
-    public function __construct()
-    {
-        $this->initialBalance = 0;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
     /**
      * @param string $name
+     *
+     * @return $this
      */
     public function setName($name)
     {
@@ -52,6 +36,8 @@ class Account
 
     /**
      * @param float $initialBalance
+     *
+     * @return $this
      */
     public function setInitialBalance($initialBalance)
     {
@@ -67,6 +53,4 @@ class Account
     {
         return $this->initialBalance;
     }
-
-
 }

@@ -1,0 +1,3 @@
+account:
+  type:     rest
+  resource: OhMyBank\Bundle\ApiBundle\Controller\AccountController
