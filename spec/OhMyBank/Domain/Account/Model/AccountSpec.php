@@ -33,7 +33,7 @@ class AccountSpec extends ObjectBehavior
         $this->getInitialBalance()->shouldReturn(0);
     }
 
-    function its_initialBalance_is_mutable()
+    function its_initial_balance_is_mutable()
     {
         $this->setInitialBalance(100);
         $this->getInitialBalance()->shouldReturn(100);
