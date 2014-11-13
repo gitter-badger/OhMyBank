@@ -1,7 +1,19 @@
 {
     "name": "oh-my-bank",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "components"
+    ],
+    "devDependencies": {},
     "dependencies": {
-        "bootstrap": "~3.2",
-	"angular": "~1.2"
+        "angular": "~1.2",
+        "angular-mocks": "~1.2",
+        "angular-ui-router": "~0.2.11",
+        "bootstrap": "~3.3",
+        "restangular": "~1.4.0",
+        "components-underscore": "~1.7.0",
+        "ng-table": "~0.3.3",
+        "ng-table-export": "*"
     }
 }

@@ -1,6 +1,7 @@
 account:
   type:     rest
   resource: OhMyBank\Bundle\ApiBundle\Controller\AccountController
+  prefix: /api/
 
 ohmybank_index:
     pattern:  /{path}

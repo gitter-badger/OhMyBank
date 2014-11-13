@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app>
+<html lang="fr" ng-app="app">
 <head>
   <meta charset="UTF-8">
   <title>OhMyBank!</title>
@@ -7,18 +7,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
-  <link rel="stylesheet" href="{{ asset('assets/dist/css/vendor.css') }}" />
+  <link rel="stylesheet" href="{{ asset('app/css/app.css') }}" />
 
-  <script src="{{ asset('assets/dist/js/app.js') }}"></script>
+  <script src="{{ asset('app/js/app.js') }}"></script>
 </head>
 <body>
 
-    <div>
-      <label>Name:</label>
-      <input type="text" ng-model="yourName" placeholder="Enter a name here">
-      <hr>
-      <h1>Hello {% verbatim %}{{yourName}}{% endverbatim %}!</h1>
-    </div>
+    <div ui-view></div>
 
 </body>
 </html>
