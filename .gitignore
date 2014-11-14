@@ -14,11 +14,17 @@ app/config/parameters.ini
 app/config/parameters.yml
 
 /bin/*
+/var/*
 
 # Composer
 composer.phar
 
-/.sass-cache/
 /node_modules/
 /bower_components/
-/web/app
+
+/web/index.html
+/web/fonts/
+/web/images/
+/web/scripts/
+/web/styles/
+/web/views/
