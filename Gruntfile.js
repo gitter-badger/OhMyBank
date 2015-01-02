@@ -1,92 +1,331 @@
+'use strict';
+
 module.exports = function (grunt) {
+
+    require('load-grunt-tasks')(grunt);
+
+    require('time-grunt')(grunt);
+
+    var appConfig = {
+        app: 'client',
+        tmp: 'var/build/grunt',
+        dist: 'web'
+    };
+
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-        cssmin : {
-            bundled:{
-                src: 'web/app/css/app.css',
-                dest: 'web/app/css/app.css'
-            }
-        },
-        uglify : {
+
+        config: appConfig,
+
+        watch: {
+            bower: {
+                files: ['bower.json'],
+                tasks: ['wiredep']
+            },
             js: {
-                files: {
-                    'web/app/js/app.js': ['web/app/js/app.js']
-                }
-            }
-        },
-        concat: {
-            options: {
-                stripBanners: true
-            },
-            css: {
-                src: [
-                    'web/app/css/main.css'
-                ],
-                dest: 'web/app/css/app.css'
-            },
-            js : {
-                src : [
-                    'bower_components/angular/angular.js',
-                    'bower_components/angular-resource/angular-resource.js',
-                    'bower_components/ng-table/ng-table.js',
-                    'bower_components/ng-table-export/ng-table-export.js',
-                    'bower_components/angular-ui-router/release/angular-ui-router.js',
-                    'bower_components/components-underscore/underscore.js',
-                    'bower_components/restangular/dist/restangular.js',
-                    'client/app.js',
-                    'client/account.js'
-                ],
-                dest: 'web/app/js/app.js'
-            }
-        },
-        less: {
-            build: {
-                files: {
-                    'web/app/css/main.css': 'client/less/main.less'
-                }
-            },
-            compile: {
-                files: {
-                    'web/app/css/main.css': 'client/less/main.less'
-                },
+                files: ['<%= config.app %>/scripts/{,*/}*.js'],
                 options: {
-                    cleancss: true,
-                    compress: true
+                    livereload: '<%= connect.options.livereload %>'
                 }
-            }
-        },
-        copy: {
-            fonts: {
+            },
+            styles: {
+                files: ['<%= config.app %>/styles/{,*/}*.css'],
+                tasks: ['newer:copy:styles']
+            },
+            gruntfile: {
+                files: ['Gruntfile.js']
+            },
+            less: {
+                files: ['<%= config.app %>/styles/{,*/}*.less'],
+                tasks: ['less:dist']
+            },
+            livereload: {
+                options: {
+                    livereload: '<%= connect.options.livereload %>'
+                },
                 files: [
-                    {
-                        expand: true,
-                        src: ['bower_components/bootstrap/dist/fonts/*'],
-                        dest: 'web/app/fonts',
-                        flatten: true
-                    }
+                    '<%= config.app %>/views/{,*/}*.html',
+                    '<%= config.tmp %>/styles/{,*/}*.css',
+                    '<%= config.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
             }
         },
-        symlink: {
-            views: {
-                dest: 'web/app/views',
-                relativeSrc: '../../client/views',
-                options: {type: 'dir'}
+
+        connect: {
+            options: {
+                port: 9000,
+                // Change this to '0.0.0.0' to access the server from outside.
+                hostname: '0.0.0.0',
+                livereload: 35729
+            },
+            livereload: {
+                options: {
+                    open: true,
+                    middleware: function (connect) {
+                        return [
+                            connect.static(appConfig.tmp),
+                            connect().use(
+                                '/bower_components',
+                                connect.static('./bower_components')
+                            ),
+                            connect.static(appConfig.app)
+                        ];
+                    }
+                }
+            },
+            dist: {
+                options: {
+                    open: true,
+                    base: '<%= config.dist %>'
+                }
+            }
+        },
+
+        // Empties folders to start fresh
+        clean: {
+            dist: {
+                files: [{
+                    dot: true,
+                    src: [
+                        '<%= config.tmp %>',
+                        '<%= config.dist %>/fonts/{,*/}*',
+                        '<%= config.dist %>/images/{,*/}*',
+                        '<%= config.dist %>/scripts/{,*/}*',
+                        '<%= config.dist %>/styles/{,*/}*',
+                        '<%= config.dist %>/index.html',
+                        '!<%= config.dist %>/.gitkeep'
+                    ]
+                }]
+            }
+        },
+
+        // Automatically inject Bower components into the app
+        wiredep: {
+            app: {
+                src: ['<%= config.app %>/index.html'],
+                ignorePath:  /\.\.\//
+            }
+        },
+
+        // Renames files for browser caching purposes
+        filerev: {
+            dist: {
+                src: [
+                    '<%= config.dist %>/scripts/{,*/}*.js',
+                    '<%= config.dist %>/styles/{,*/}*.css',
+                    '<%= config.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+                    '<%= config.dist %>/styles/fonts/*'
+                ]
+            }
+        },
+
+        // Reads HTML for usemin blocks to enable smart builds that automatically
+        // concat, minify and revision files. Creates configurations in memory so
+        // additional tasks can operate on them
+        useminPrepare: {
+            html: '<%= config.app %>/index.html',
+            options: {
+                dest: '<%= config.dist %>',
+                staging: '<%= config.tmp %>',
+                flow: {
+                    html: {
+                        steps: {
+                            js: ['concat', 'uglifyjs'],
+                            css: ['cssmin']
+                        },
+                        post: {}
+                    }
+                }
+            }
+        },
+
+        // Performs rewrites based on filerev and the useminPrepare configuration
+        usemin: {
+            html: ['<%= config.dist %>/{,*/}*.html', '<%= config.dist %>/views/{,*/}*.html'],
+            css: ['<%= config.dist %>/styles/{,*/}*.css'],
+            options: {
+                assetsDirs: ['<%= config.dist %>','<%= config.dist %>/images']
+            }
+        },
+
+        // The following *-min tasks will produce minified files in the dist folder
+        // By default, your `index.html`'s <!-- Usemin block --> will take care of
+        // minification. These next options are pre-configured if you do not wish
+        // to use the Usemin blocks.
+        cssmin: {
+           dist: {
+             files: {
+               '<%= config.dist %>/styles/main.css': [
+                 '<%= config.tmp %>/styles/{,*/}*.css'
+               ]
+             }
+           }
+        },
+        uglify: {
+           dist: {
+             files: {
+               '<%= config.dist %>/scripts/scripts.js': [
+                 '<%= config.dist %>/scripts/scripts.js'
+               ]
+             }
+           }
+        },
+        concat: {
+           dist: {}
+        },
+
+        htmlmin: {
+            dist: {
+                options: {
+                    collapseWhitespace: true,
+                    conservativeCollapse: true,
+                    collapseBooleanAttributes: true,
+                    removeCommentsFromCDATA: true,
+                    removeOptionalTags: true
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= config.dist %>',
+                    src: ['*.html'],
+                    dest: '<%= config.dist %>'
+                }]
+            }
+        },
+
+        // ng-annotate tries to make the code safe for minification automatically
+        // by using the Angular long form for dependency injection.
+        ngAnnotate: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= config.tmp %>/concat/scripts',
+                    src: ['*.js', '!oldieshim.js'],
+                    dest: '<%= config.tmp %>/concat/scripts'
+                }]
+            }
+        },
+
+        ngconstant: {
+            options: {
+                name: 'config',
+                dest: '<%= config.tmp %>/scripts/config/config.js',
+                constants: {
+                    ENV: grunt.file.readJSON('client/config/config.json')
+                },
+                values: {
+                    debug: true
+                }
+            },
+            build: {
+            }
+        },
+
+        ngtemplates:  {
+            app:        {
+                cwd:      '<%= config.app %>',
+                src:      ['views/**.html','views/**/**.html'],
+                dest:     '<%= config.tmp %>/scripts/templates.js',
+                options:    {
+                    htmlmin:  '<%= htmlmin.dist.options %>'
+                }
+            }
+        },
+        // Copies remaining files to places other tasks can use
+        copy: {
+            dist: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= config.app %>',
+                    dest: '<%= config.dist %>',
+                    src: [
+                        '*.{ico,png,txt}',
+                        '.htaccess',
+                        '*.html',
+                        'images/{,*/}*.{webp}',
+                        'fonts/{,*/}*'
+                    ]
+                }, {
+                    expand: true,
+                    cwd: '<%= config.tmp %>/images',
+                    dest: '<%= config.dist %>/images',
+                    src: ['generated/*']
+                }, {
+                    expand: true,
+                    cwd: 'bower_components/bootstrap/dist',
+                    src: 'fonts/*',
+                    dest: '<%= config.dist %>'
+                }]
+            },
+            styles: {
+                expand: true,
+                cwd: '<%= config.app %>/styles',
+                dest: '<%= config.tmp %>/styles/',
+                src: '{,*/}*.css'
+            },
+            server: {
+                expand: true,
+                cwd: 'bower_components/bootstrap/dist',
+                src: 'fonts/*',
+                dest: '<%= config.tmp %>'
+            }
+        },
+
+        // Run some tasks in parallel to speed up the build process
+        concurrent: {
+            test: [
+                'copy:styles'
+            ],
+            server: [
+                'less:dist',
+                'copy:server'
+            ],
+            dist: [
+                'copy:styles'
+            ]
+        },
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js',
+                singleRun: true
             }
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-symlink');
+    grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
+        if (target === 'dist') {
+            return grunt.task.run(['build', 'connect:dist:keepalive']);
+        }
 
-    grunt.registerTask('default', ['build', 'compile', 'symlink']);
+        grunt.task.run([
+            'clean:server',
+            'wiredep',
+            'ngconstant',
+            'concurrent:server',
+            'connect:livereload',
+            'watch'
+        ]);
+    });
 
-    grunt.registerTask('build', ['less:build', 'concat', 'cssmin', 'uglify', 'copy']);
+    grunt.registerTask('build', [
+        'clean:dist',
+        'wiredep',
+        'ngtemplates',
+        'ngconstant',
+        'useminPrepare',
+        'concurrent:dist',
+        'concat',
+        'ngAnnotate',
+        'copy:dist',
+        'cssmin',
+        'uglify',
+        'filerev',
+        'usemin',
+        'htmlmin'
+    ]);
 
-    grunt.registerTask('compile', ['less:compile', 'concat']);
+    grunt.registerTask('default', [
+        'test',
+        'build'
+    ]);
 };
+
