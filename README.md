@@ -17,7 +17,15 @@ for the front-end part.
     npm install
     bower install
 
+    # copy client/config/config.json.dist to client/config/config.json
+    # edit api endpoint
+
     grunt
+
+## Usage
+
+    # start client server http://localhost:9000
+    grunt serve
 
 ## License
 
