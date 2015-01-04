@@ -12,6 +12,7 @@ web/bundles/*
 # Configuration files
 app/config/parameters.ini
 app/config/parameters.yml
+client/config/config.json
 
 /bin/*
 /var/*
