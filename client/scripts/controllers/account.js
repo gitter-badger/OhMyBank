@@ -2,12 +2,14 @@
 
 angular.module('app.account', ['ui.router'])
 
-    .config(['$stateProvider', function($stateProvider) {
+    .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
         $stateProvider.state('homepage', {
-            url: "/homepage",
-            templateUrl: '/app/views/account/homepage.html',
+            url: "/",
+            templateUrl: 'views/account/homepage.html',
             controller: 'HomepageCtrl'
         });
+
+        $urlRouterProvider.otherwise("/");
     }])
 
     .controller('HomepageCtrl', ['$scope', '$interval', 'Account', function($scope, $interval, Account) {

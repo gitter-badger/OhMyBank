@@ -95,7 +95,8 @@ module.exports = function (grunt) {
                         '!<%= config.dist %>/.gitkeep'
                     ]
                 }]
-            }
+            },
+            server: '<%= config.tmp %>'
         },
 
         // Automatically inject Bower components into the app
@@ -103,6 +104,17 @@ module.exports = function (grunt) {
             app: {
                 src: ['<%= config.app %>/index.html'],
                 ignorePath:  /\.\.\//
+            },
+            less: {
+                src: ['<%= config.app %>/styles/{,*/}*.less']
+            }
+        },
+
+        less: {
+            dist: {
+                files: {
+                    "<%= config.tmp %>/styles/main.css": "<%= config.app %>/styles/main.less"
+                }
             }
         },
 
@@ -272,9 +284,6 @@ module.exports = function (grunt) {
 
         // Run some tasks in parallel to speed up the build process
         concurrent: {
-            test: [
-                'copy:styles'
-            ],
             server: [
                 'less:dist',
                 'copy:server'
@@ -324,7 +333,6 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('default', [
-        'test',
         'build'
     ]);
 };
