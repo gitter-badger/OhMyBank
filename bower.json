@@ -12,8 +12,6 @@
         "angular-ui-router": "~0.2.11",
         "bootstrap": "~3.3",
         "restangular": "~1.4.0",
-        "components-underscore": "~1.7.0",
-        "ng-table": "~0.3.3",
-        "ng-table-export": "*"
+        "components-underscore": "~1.7.0"
     }
 }
