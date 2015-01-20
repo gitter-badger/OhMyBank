@@ -9,15 +9,16 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/ng-table/ng-table.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:css(var/build/grunt) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 </head>
 <body ng-app="app">
+
+    <nav class="navbar navbar-default" role="navigation" ng-include="'views/navbar.html'"></nav>
 
     <div ui-view></div>
 
@@ -31,8 +32,6 @@
     <script src="bower_components/lodash/dist/lodash.compat.js"></script>
     <script src="bower_components/restangular/dist/restangular.js"></script>
     <script src="bower_components/components-underscore/underscore.js"></script>
-    <script src="bower_components/ng-table/ng-table.js"></script>
-    <script src="bower_components/ng-table-export/ng-table-export.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

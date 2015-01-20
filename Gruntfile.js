@@ -103,7 +103,8 @@ module.exports = function (grunt) {
         wiredep: {
             app: {
                 src: ['<%= config.app %>/index.html'],
-                ignorePath:  /\.\.\//
+                ignorePath:  /\.\.\//,
+                exclude: ['bower_components/bootstrap/dist/css/bootstrap.css']
             },
             less: {
                 src: ['<%= config.app %>/styles/{,*/}*.less']
@@ -289,6 +290,7 @@ module.exports = function (grunt) {
                 'copy:server'
             ],
             dist: [
+                'less:dist',
                 'copy:styles'
             ]
         },
