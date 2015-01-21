@@ -13,6 +13,7 @@ install:
   - bower install --config.interactive=false
 
 before_script:
+  - cp client/config/config.json.dist client/config/config.json
   - composer self-update
   - composer install --prefer-source --no-interaction
 
