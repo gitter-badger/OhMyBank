@@ -3,7 +3,7 @@
     angular
         .module('app')
         .config(function($urlRouterProvider, RestangularProvider, ENV) {
-            $urlRouterProvider.otherwise('/homepage');
+            $urlRouterProvider.otherwise('/');
 
             RestangularProvider.setBaseUrl(ENV.apiEndPoint);
         })
