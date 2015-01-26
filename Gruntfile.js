@@ -220,7 +220,7 @@ module.exports = function (grunt) {
         ngconstant: {
             options: {
                 name: 'config',
-                dest: '<%= config.tmp %>/scripts/config/config.js',
+                dest: '<%= config.tmp %>/scripts/config.js',
                 constants: {
                     ENV: grunt.file.readJSON('client/config/config.json')
                 },
