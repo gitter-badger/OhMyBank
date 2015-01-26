@@ -7,6 +7,9 @@
 	"require": {
 		"laravel/framework": "4.2.*"
 	},
+        "require-dev": {
+                "phpspec/phpspec": "~2.0"
+        },
 	"autoload": {
 		"classmap": [
 			"app/commands",
@@ -17,6 +20,9 @@
 			"app/tests/TestCase.php"
 		]
 	},
+        "psr-4": {
+            "OhMyBank\\": "app/OhMyBank"
+        },
 	"scripts": {
 		"post-install-cmd": [
 			"php artisan clear-compiled",
