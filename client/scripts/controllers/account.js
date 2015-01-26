@@ -8,8 +8,6 @@ angular.module('app.account', ['ui.router'])
             templateUrl: 'views/account/homepage.html',
             controller: 'HomepageCtrl'
         });
-
-        $urlRouterProvider.otherwise("/");
     }])
 
     .controller('HomepageCtrl', ['$scope', '$interval', 'Account', function($scope, $interval, Account) {
