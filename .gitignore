@@ -1,31 +1,8 @@
-# Bootstrap
-app/bootstrap*
-
-# Symfony directories
-vendor/*
-*/logs/*
-*/cache/*
-web/uploads/*
-web/bundles/*
-/web/assets/dist/
-
-# Configuration files
-app/config/parameters.ini
-app/config/parameters.yml
-client/config/config.json
-
-/bin/*
-/var/*
-
-# Composer
+/bootstrap/compiled.php
+/vendor
 composer.phar
-
-/node_modules/
-/bower_components/
-
-/web/index.html
-/web/fonts/
-/web/images/
-/web/scripts/
-/web/styles/
-/web/views/
+composer.lock
+.env.*.php
+.env.php
+.DS_Store
+Thumbs.db

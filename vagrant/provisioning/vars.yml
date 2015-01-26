@@ -1,6 +1,0 @@
----
-mariadb_dev_password: ij86EEg9
-apache2_vhosts:
-  - name: "ohmybank"
-    servername: "ohmybank.dev"
-    documentrootdir: "ohmybank/web"
