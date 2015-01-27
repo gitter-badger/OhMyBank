@@ -1,9 +1,15 @@
 .navbar {
 
-    #gradient > .vertical(#fff, #f5f6f8);
+    border: none;
 
     .navbar-brand {
         font-size: 22px;
         font-weight: bold;
+    }
+
+    li:not(.active) {
+        a:hover {
+            font-weight: bold;
+        }
     }
 }

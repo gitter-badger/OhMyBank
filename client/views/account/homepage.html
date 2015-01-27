@@ -1,10 +1,66 @@
 <div class="row">
     <div class="col-sm-3">
         <h2>Mes comptes</h2>
-        <ul>
-            <li ng-repeat="account in accounts">
-                {{ account.name }}
-            </li>
-        </ul>
+        <div class="panel panel-default">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Total</th>
+                        <th class="text-right"><strong class="text-success">1 000 €</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Laposte</td>
+                        <td class="text-right"><strong class="text-success">3 000 €</strong></td>
+                    </tr>
+                    <tr>
+                        <td>BNP Paribas</td>
+                        <td><strong class="pull-right text-danger">-2 000 €</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <h2>Mes dernières opérations</h2>
+        <div class="panel panel-default">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Compte</th>
+                        <th>Libellé</th>
+                        <th class="text-right">Montant</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>30/12/2014</td>
+                        <td>Laposte</td>
+                        <td>DVD live Rinus</td>
+                        <td class="text-right text-danger">-20 €</td>
+                    </tr>
+                    <tr>
+                        <td>24/12/2014</td>
+                        <td>Laposte</td>
+                        <td>Poster Rinus</td>
+                        <td class="text-right text-danger">-10 €</td>
+                    </tr>
+                    <tr>
+                        <td>16/12/2014</td>
+                        <td>Laposte</td>
+                        <td>Salaire</td>
+                        <td class="text-right text-success">1 400 €</td>
+                    </tr>
+                    <tr>
+                        <td>12/12/2014</td>
+                        <td>Laposte</td>
+                        <td>CD édition limitée Rinus</td>
+                        <td class="text-right text-danger">-200 €</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
