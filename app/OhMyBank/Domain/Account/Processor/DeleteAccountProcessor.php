@@ -1,6 +1,6 @@
 <?php
 
-namespace OhMyBank\Domain\Account\Processor;
+namespace App\OhMyBank\Domain\Account\Processor;
 
 use OhMyBank\Domain\Account\Action\DeleteAccountAction;
 use OhMyBank\Domain\Account\Model\Account;
