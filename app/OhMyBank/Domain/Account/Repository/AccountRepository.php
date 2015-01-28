@@ -1,8 +1,8 @@
 <?php
 
-namespace OhMyBank\Domain\Account\Repository;
+namespace App\OhMyBank\Domain\Account\Repository;
 
-use OhMyBank\Domain\Account\Model\Account;
+use App\OhMyBank\Domain\Account\Model\Account;
 
 interface AccountRepository
 {

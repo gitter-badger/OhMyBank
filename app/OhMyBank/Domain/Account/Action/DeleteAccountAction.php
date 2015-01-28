@@ -1,8 +1,8 @@
 <?php
 
-namespace OhMyBank\Domain\Account\Action;
+namespace App\OhMyBank\Domain\Account\Action;
 
-use OhMyBank\Domain\Account\Model\Account;
+use App\OhMyBank\Domain\Account\Model\Account;
 
 class DeleteAccountAction
 {

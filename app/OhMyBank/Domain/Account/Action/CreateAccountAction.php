@@ -1,6 +1,6 @@
 <?php
 
-namespace OhMyBank\Domain\Account\Action;
+namespace App\OhMyBank\Domain\Account\Action;
 
 class CreateAccountAction
 {
