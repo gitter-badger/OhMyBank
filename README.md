@@ -1,5 +1,7 @@
 # OhMyBank
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/OhMyBank/OhMyBank?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build status...](https://api.travis-ci.org/OhMyBank/OhMyBank.svg)](https://travis-ci.org/OhMyBank/OhMyBank)
 
 OhMyBank is a web-app to track your personal finances.
